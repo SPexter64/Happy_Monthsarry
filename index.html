@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Monthsary, My Love! 💕</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins & Dancing Script -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        script: ['Dancing Script', 'cursive'],
+                    },
+                    colors: {
+                        pink: {
+                            50: '#fff1f4',
+                            100: '#ffe4e9',
+                            200: '#fecdd6',
+                            300: '#fea7b7',
+                            400: '#fb7189',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            700: '#be123c',
+                        }
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 2.5s infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                        'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
+                        'sparkle': 'sparkle 1.5s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        shake: {
+                            '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
+                            '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
+                            '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
+                            '40%, 60%': { transform: 'translate3d(4px, 0, 0)' }
+                        },
+                        sparkle: {
+                            '0%': { opacity: '0.2', transform: 'scale(0.8)' },
+                            '100%': { opacity: '1', transform: 'scale(1.2)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #fff1f4 0%, #ffe4e9 50%, #fdf2f8 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(254, 205, 214, 0.7);
+            box-shadow: 0 10px 30px rgba(244, 63, 94, 0.12);
+        }
+
+        .romantic-input {
+            letter-spacing: 0.5em;
+            text-align: center;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #fff1f4;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #fecdd6;
+            border-radius: 9999px;
+        }
+
+        /* TULIP GROWING ANIMATION STYLES */
+        .tulip-svg {
+            overflow: visible;
+        }
+
+        .tulip-stem {
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            transition: stroke-dashoffset 2.2s ease-in-out;
+        }
+
+        .flower-blooming .tulip-stem {
+            stroke-dashoffset: 0;
+        }
+
+        .tulip-leaf-left,
+        .tulip-leaf-right {
+            transform-origin: bottom center;
+            transform: scale(0);
+            transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s;
+        }
+
+        .flower-blooming .tulip-leaf-left,
+        .flower-blooming .tulip-leaf-right {
+            transform: scale(1);
+        }
+
+        .tulip-head {
+            transform-origin: 100px 100px;
+            transform: scale(0) translateY(20px);
+            opacity: 0;
+            transition: transform 1.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.8s, opacity 0.8s ease 1.8s;
+        }
+
+        .flower-blooming .tulip-head {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .tulip-petal-outer {
+            transform-origin: bottom center;
+            transition: transform 1.4s ease-out 2.2s;
+        }
+
+        .flower-blooming .tulip-petal-left {
+            transform: rotate(-12deg);
+        }
+
+        .flower-blooming .tulip-petal-right {
+            transform: rotate(12deg);
+        }
+
+        .sparkle-particle {
+            opacity: 0;
+            transition: opacity 1s ease 3s;
+        }
+
+        .flower-blooming .sparkle-particle {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body class="text-pink-900 font-sans antialiased flex flex-col items-center justify-center min-h-screen p-4">
+
+    <!-- Background Audio Element -->
+    <audio id="bg-audio" loop preload="auto">
+        <source src="song/song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div id="floating-hearts" class="fixed inset-0 pointer-events-none overflow-hidden z-0"></div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div id="app-container" class="relative z-10 w-full max-w-md mx-auto">
+
+        <!-- ================= VIEW 1: PASSCODE SCREEN ================= -->
+        <div id="passcode-view"
+            class="glass-card rounded-3xl p-6 md:p-8 text-center transition-all duration-500 transform scale-100">
+            <div class="mb-4 inline-block p-3 bg-pink-100 rounded-full text-pink-500 text-3xl animate-bounce-slow">
+                <i class="fa-solid fa-heart"></i>
+            </div>
+
+            <h1 class="font-script text-4xl md:text-5xl text-pink-600 mb-2 font-bold">Our Special Day</h1>
+            <p class="text-pink-700/80 text-sm mb-6">What is our anniversary passcode? 💕</p>
+
+            <!-- Patrick Error Display Area -->
+            <div id="patrick-container" class="mb-6 hidden flex flex-col items-center animate-shake">
+                <div
+                    class="w-32 h-32 rounded-2xl overflow-hidden shadow-md border-2 border-pink-300 mb-3 bg-white flex items-center justify-center">
+                    <img id="patrick-img" src="" alt="Patrick Reaction" class="w-full h-full object-cover">
+                </div>
+                <p id="patrick-text" class="font-script text-2xl font-bold text-pink-600 px-2"></p>
+            </div>
+
+            <!-- Passcode Form -->
+            <form id="passcode-form" onsubmit="handlePasscode(event)" class="space-y-4">
+                <div class="relative">
+                    <input type="password" id="passcode-input" maxlength="4" placeholder="••••"
+                        class="romantic-input w-full py-4 px-6 text-2xl font-bold rounded-2xl border-2 border-pink-200 bg-white/90 text-pink-800 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-200 transition-all shadow-inner"
+                        autocomplete="off" required>
+                </div>
+                <button type="submit"
+                    class="w-full py-3.5 px-6 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold rounded-2xl shadow-lg shadow-pink-500/30 transform active:scale-95 transition-all duration-200 flex items-center justify-center space-x-2">
+                    <span>UNLOCK</span>
+                    <i class="fa-solid fa-key text-sm"></i>
+                </button>
+            </form>
+            <p class="mt-4 text-xs text-pink-400">Youuu knowww it</p>
+        </div>
+
+
+        <!-- ================= VIEW 2: MAIN DASHBOARD ================= -->
+        <div id="dashboard-view" class="hidden space-y-5 transition-all duration-500">
+            <!-- Header Card -->
+            <div class="glass-card rounded-3xl p-6 text-center relative overflow-hidden">
+                <div class="absolute -right-6 -top-6 w-24 h-24 bg-pink-200 rounded-full opacity-45 pointer-events-none">
+                </div>
+                <div
+                    class="absolute -left-6 -bottom-6 w-20 h-20 bg-rose-200 rounded-full opacity-45 pointer-events-none">
+                </div>
+
+                <span
+                    class="inline-block py-1 px-3 bg-pink-100 text-pink-600 rounded-full text-xs font-semibold tracking-wider uppercase mb-2">Happy
+                    Monthsary</span>
+                <h1 class="font-script text-4xl text-pink-600 font-bold mb-1">To My Forever Love 💖</h1>
+                <p class="text-xs text-pink-700/70">Tap any card below to open our special surprises</p>
+            </div>
+
+            <!-- 4 Interactive Cards Grid -->
+            <div class="grid grid-cols-1 gap-4">
+
+                <!-- Card 1: Flower & Bunnies -->
+                <button onclick="switchView('flower-view')"
+                    class="glass-card rounded-2xl p-4 flex items-center space-x-4 text-left hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 group border-l-4 border-l-pink-400">
+                    <div
+                        class="w-14 h-14 rounded-2xl bg-pink-100 flex items-center justify-center text-2xl text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-colors shadow-sm">
+                        🌷
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between">
+                            <h2 class="font-bold text-pink-900 text-lg">A Flower For Her</h2>
+                            <i
+                                class="fa-solid fa-chevron-right text-pink-300 group-hover:text-pink-500 transition-colors"></i>
+                        </div>
+                        <p class="text-xs text-pink-700/70">Watch a special pink tulip bloom for you</p>
+                    </div>
+                </button>
+
+                <!-- Card 2: Love Letter -->
+                <button onclick="switchView('letter-view')"
+                    class="glass-card rounded-2xl p-4 flex items-center space-x-4 text-left hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 group border-l-4 border-l-rose-400">
+                    <div
+                        class="w-14 h-14 rounded-2xl bg-rose-100 flex items-center justify-center text-2xl text-rose-500 group-hover:bg-rose-500 group-hover:text-white transition-colors shadow-sm">
+                        💌
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between">
+                            <h2 class="font-bold text-pink-900 text-lg">Love Letter</h2>
+                            <i
+                                class="fa-solid fa-chevron-right text-pink-300 group-hover:text-rose-500 transition-colors"></i>
+                        </div>
+                        <p class="text-xs text-pink-700/70">Words straight from my heart to yours</p>
+                    </div>
+                </button>
+
+                <!-- Card 3: Music & Lyrics -->
+                <button onclick="switchView('music-view')"
+                    class="glass-card rounded-2xl p-4 flex items-center space-x-4 text-left hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 group border-l-4 border-l-pink-500">
+                    <div
+                        class="w-14 h-14 rounded-2xl bg-pink-100 flex items-center justify-center text-2xl text-pink-600 group-hover:bg-pink-600 group-hover:text-white transition-colors shadow-sm">
+                        🎵
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between">
+                            <h2 class="font-bold text-pink-900 text-lg">Our Song Lyrics</h2>
+                            <i
+                                class="fa-solid fa-chevron-right text-pink-300 group-hover:text-pink-600 transition-colors"></i>
+                        </div>
+                        <p class="text-xs text-pink-700/70">Song lyrics I dedicated for you</p>
+                    </div>
+                </button>
+
+                <!-- Card 4: Spotify Playlist -->
+                <button onclick="switchView('spotify-view')"
+                    class="glass-card rounded-2xl p-4 flex items-center space-x-4 text-left hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 group border-l-4 border-l-rose-500">
+                    <div
+                        class="w-14 h-14 rounded-2xl bg-rose-100 flex items-center justify-center text-2xl text-rose-600 group-hover:bg-rose-500 group-hover:text-white transition-colors shadow-sm">
+                        🎧
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between">
+                            <h2 class="font-bold text-pink-900 text-lg">Spotify Playlist</h2>
+                            <i
+                                class="fa-solid fa-chevron-right text-pink-300 group-hover:text-rose-500 transition-colors"></i>
+                        </div>
+                        <p class="text-xs text-pink-700/70">Our favorite songs and melodies</p>
+                    </div>
+                </button>
+
+            </div>
+
+            <div class="text-center pt-1">
+                <p class="font-script text-xl text-pink-500">I love you more each and every day ✨</p>
+            </div>
+        </div>
+
+
+        <!-- ================= VIEW 3: GROWING TULIP & BUNNIES ================= -->
+        <div id="flower-view"
+            class="hidden glass-card rounded-3xl p-6 text-center space-y-4 transition-all duration-500">
+            <div class="flex items-center justify-between">
+                <button onclick="switchView('dashboard-view')"
+                    class="w-10 h-10 rounded-full bg-pink-100 hover:bg-pink-200 text-pink-600 flex items-center justify-center transition-colors shadow-sm">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <h2 class="font-script text-3xl text-pink-600 font-bold">A Flower For Her 🌷</h2>
+                <button onclick="triggerTulipGrowth()"
+                    class="w-10 h-10 rounded-full bg-pink-100 hover:bg-pink-200 text-pink-600 flex items-center justify-center transition-colors shadow-sm"
+                    title="Re-bloom">
+                    <i class="fa-solid fa-rotate-right text-sm"></i>
+                </button>
+            </div>
+
+            <!-- Dynamic Tulip & Bunny Display Canvas Area -->
+            <div id="tulip-wrapper"
+                class="relative py-2 flex flex-col items-center justify-center min-h-[260px] overflow-hidden rounded-2xl bg-gradient-to-b from-pink-50/60 to-white/90 border border-pink-200/60 shadow-inner">
+
+                <!-- Floating Bunnies on top -->
+                <div class="flex items-center justify-between w-full px-8 text-3xl absolute top-3 z-20">
+                    <span class="animate-bounce-slow">🐰</span>
+                    <span
+                        class="text-xs font-semibold px-2 py-1 bg-pink-100/90 text-pink-600 rounded-full shadow-sm">Blooming
+                        for you...</span>
+                    <span class="animate-bounce-slow" style="animation-delay: 0.5s;">🐰</span>
+                </div>
+
+                <!-- SVG GROWING TULIP -->
+                <div class="relative z-10 my-4">
+                    <svg class="tulip-svg w-48 h-56" viewBox="0 0 200 240" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <!-- Sparkles -->
+                        <g class="sparkle-particle">
+                            <circle cx="50" cy="50" r="3" fill="#f43f5e" class="animate-sparkle" />
+                            <circle cx="150" cy="40" r="4" fill="#fb7189" class="animate-sparkle"
+                                style="animation-delay: 0.3s;" />
+                            <circle cx="30" cy="110" r="2.5" fill="#fecdd6" class="animate-sparkle"
+                                style="animation-delay: 0.6s;" />
+                            <circle cx="170" cy="100" r="3.5" fill="#f43f5e" class="animate-sparkle"
+                                style="animation-delay: 0.9s;" />
+                            <!-- Sparkle stars -->
+                            <path d="M100 20 L102 26 L108 28 L102 30 L100 36 L98 30 L92 28 L98 26 Z" fill="#fb7189"
+                                class="animate-pulse" />
+                            <path d="M160 80 L161 83 L164 84 L161 85 L160 88 L159 85 L156 84 L159 83 Z" fill="#f43f5e"
+                                class="animate-pulse" />
+                        </g>
+
+                        <!-- Leaves -->
+                        <path class="tulip-leaf-left" d="M100 210 Q60 180 55 130 Q85 160 100 195 Z" fill="#4ade80"
+                            opacity="0.9" />
+                        <path class="tulip-leaf-right" d="M100 210 Q140 170 145 120 Q115 150 100 190 Z" fill="#22c55e"
+                            opacity="0.9" />
+
+                        <!-- Stem -->
+                        <path class="tulip-stem" d="M100 230 Q98 160 100 95" stroke="#16a34a" stroke-width="7"
+                            stroke-linecap="round" />
+
+                        <!-- Tulip Flower Head Container -->
+                        <g class="tulip-head">
+                            <!-- Center back petal -->
+                            <path d="M100 100 C75 70 70 35 100 20 C130 35 125 70 100 100 Z" fill="#e11d48" />
+
+                            <!-- Left outer petal -->
+                            <path class="tulip-petal-outer tulip-petal-left"
+                                d="M100 100 C65 85 50 45 75 25 C95 45 98 80 100 100 Z" fill="#f43f5e" />
+
+                            <!-- Right outer petal -->
+                            <path class="tulip-petal-outer tulip-petal-right"
+                                d="M100 100 C135 85 150 45 125 25 C105 45 102 80 100 100 Z" fill="#fb7189" />
+
+                            <!-- Main center glowing petal -->
+                            <path d="M100 100 C82 80 80 40 100 30 C120 40 118 80 100 100 Z" fill="#fecdd6"
+                                opacity="0.85" />
+                        </g>
+
+                        <!-- Pot / Ground Soil -->
+                        <ellipse cx="100" cy="228" rx="35" ry="8" fill="#a16207" opacity="0.3" />
+                    </svg>
+                </div>
+
+            </div>
+
+            <!-- Message Box -->
+            <div class="bg-white/90 border border-pink-200 rounded-2xl p-4 shadow-sm relative z-10 space-y-1">
+                <p class="font-script text-2xl text-pink-600 font-bold">A flower for you! 🌸</p>
+                <p class="text-xs text-pink-800 font-medium leading-relaxed">
+                    "Beautiful and shining like you ✨"
+                </p>
+                <p class="text-[11px] text-pink-600/80 pt-1">
+                    Just like this tulip blooming with patience and care, my love for you grows bigger and brighter
+                    every single day 
+                </p>
+            </div>
+
+            <button onclick="switchView('dashboard-view')"
+                class="w-full py-3 bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold rounded-xl transition-colors">
+                Back
+            </button>
+        </div>
+
+
+        <!-- ================= VIEW 4: LOVE LETTER ================= -->
+        <div id="letter-view" class="hidden glass-card rounded-3xl p-6 space-y-5 transition-all duration-500">
+            <div class="flex items-center justify-between">
+                <button onclick="switchView('dashboard-view')"
+                    class="w-10 h-10 rounded-full bg-pink-100 hover:bg-pink-200 text-pink-600 flex items-center justify-center transition-colors shadow-sm">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <h2 class="font-script text-3xl text-pink-600 font-bold">Love Letter 💌</h2>
+                <div class="w-10"></div>
+            </div>
+
+            <!-- Letter Stationery Container -->
+            <div
+                class="bg-gradient-to-b from-white via-pink-50/50 to-white border-2 border-pink-200 rounded-2xl p-6 shadow-inner max-h-[380px] overflow-y-auto space-y-4 text-pink-900">
+                <div class="text-right text-xs font-semibold text-pink-400">Monthsary Edition 🌸</div>
+                <h3 class="font-script text-2xl text-rose-600 font-bold">My Dearest Love,</h3>
+
+                <p class="text-sm leading-relaxed text-pink-900/90">
+                    Happy 30th Monthsary! 💖 Looking back at all our moments together, I realize how incredibly lucky I am to
+                    have you in my life. Every smile you share and every laugh we share makes my days infinitely
+                    brighter.
+                </p>
+
+                <p class="text-sm leading-relaxed text-pink-900/90">
+                    You are my favorite notification, my comfort place, and the most wonderful person I know. Thank you
+                    for your patience, your sweetness, and for loving me just the way I am.
+                </p>
+
+                <p class="text-sm leading-relaxed text-pink-900/90">
+                   I'm sorry that sometimes hindi mona me-meet yung expectations mo sakin, and sorry that sometimes my actions aren't enough to assure you that I love you. But I want you to know that I am trying my best to be the best version of myself for you, and I will always do everything to make you feel loved and cherished.
+                </p>
+
+                <p class="text-sm leading-relaxed text-pink-900/90">
+                   I'm very grateful na meron akong ikaw sa buhay ko, na parang ako na ang pinaka swerteng lalaki sa buong mundo.
+                   Just having you in my life makes everything brighter and more meaningful, you're not just my lover but also my soulmate that I'm very comfortable to show myself with. I love you so much, and I can't wait to see what the future holds for us.
+                </p>
+
+                <p class="text-sm leading-relaxed text-pink-900/90">
+                   I pray that God gives us more strength, patience, and love to continue building our beautiful journey together. And let's fight together love, not some fighting something >_<, but to keep our relationship strong and secured. I don't want to marry someone else but you, and I want to be with you for the rest of my life. I love you so much, you are the most important in my life i don't want ever to lose you again. I'll be here forever and not going anywhere.
+                </p>
+
+                <p class="text-sm leading-relaxed text-pink-900/90">
+                    I promise to keep making you smile, support all your dreams, and hold your hand through every
+                    chapter ahead. Here's to us and many more months of happiness together.
+                </p>
+
+                <div class="pt-4 text-right">
+                    <p class="text-xs text-pink-500">Always yours,</p>
+                    <p class="font-script text-xl text-rose-600 font-bold">Your Love 💕</p>
+                </div>
+            </div>
+
+            <button onclick="switchView('dashboard-view')"
+                class="w-full py-3 bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold rounded-xl transition-colors">
+                Back
+            </button>
+        </div>
+
+
+        <!-- ================= VIEW 5: OUR SONG LYRICS (5 CARDS WITH ALBUM PIC) ================= -->
+        <div id="music-view"
+            class="hidden glass-card rounded-3xl p-6 text-center space-y-4 transition-all duration-500">
+            <div class="flex items-center justify-between">
+                <button onclick="switchView('dashboard-view')"
+                    class="w-10 h-10 rounded-full bg-pink-100 hover:bg-pink-200 text-pink-600 flex items-center justify-center transition-colors shadow-sm">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <h2 class="font-script text-3xl text-pink-600 font-bold">Dedicated for you 🎶</h2>
+                <div class="w-10"></div>
+            </div>
+
+            <p class="text-xs text-pink-700/80 mb-2">Song lyrics I dedicated specially for you 💕</p>
+
+            <!-- Scrollable Container for 5 Song Cards -->
+            <div class="max-h-[360px] overflow-y-auto space-y-3 pr-1 text-left">
+                
+                <!-- Song 1 -->
+                <div class="bg-white/90 border border-pink-200 rounded-2xl p-3 flex items-center space-x-3 shadow-sm">
+                    <img src="album/coldplay.jpeg" alt="Album Art" class="w-16 h-16 rounded-xl object-cover border border-pink-200 flex-shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-pink-900 text-sm truncate">Sparks - Coldplay</h4>
+                        <p class="text-xs text-pink-700/80 italic line-clamp-3 mt-0.5">"My heart is yours<br> It's you that i hold on to<br> Yeah, that's what i do"</p>
+                    </div>
+                </div>
+
+                <!-- Song 2 -->
+                <div class="bg-white/90 border border-pink-200 rounded-2xl p-3 flex items-center space-x-3 shadow-sm">
+                    <img src="album/cas.jpeg" alt="Album Art" class="w-16 h-16 rounded-xl object-cover border border-pink-200 flex-shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-pink-900 text-sm truncate">Apocalypse</h4>
+                        <p class="text-xs text-pink-700/80 italic line-clamp-4 mt-0.5">"When you go alone I will reach to you<br> When you're feeling low I will be there too"</p>
+                    </div>
+                </div>
+
+                <!-- Song 3 -->
+                <div class="bg-white/90 border border-pink-200 rounded-2xl p-3 flex items-center space-x-3 shadow-sm">
+                    <img src="album/exception.jpeg" alt="Album Art" class="w-16 h-16 rounded-xl object-cover border border-pink-200 flex-shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-pink-900 text-sm truncate">The only Exception</h4>
+                        <p class="text-xs text-pink-700/80 italic line-clamp-2 mt-0.5">"YOU ARE THE ONLY EXCEPTIONN"</p>
+                    </div>
+                </div>
+
+                <!-- Song 4 -->
+                <div class="bg-white/90 border border-pink-200 rounded-2xl p-3 flex items-center space-x-3 shadow-sm">
+                    <img src="album/years.jpeg" alt="Album Art" class="w-16 h-16 rounded-xl object-cover border border-pink-200 flex-shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-pink-900 text-sm truncate">Thousand years</h4>
+                        <p class="text-xs text-pink-700/80 italic line-clamp-2 mt-0.5">"I Love you for a thousand more"</p>
+                    </div>
+                </div>
+
+                <!-- Song 5 -->
+                <div class="bg-white/90 border border-pink-200 rounded-2xl p-3 flex items-center space-x-3 shadow-sm">
+                    <img src="album/old.jpeg" alt="Album Art" class="w-16 h-16 rounded-xl object-cover border border-pink-200 flex-shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-pink-900 text-sm truncate">Grow old with you</h4>
+                        <p class="text-xs text-pink-700/80 italic line-clamp-2 mt-0.5">"All i wanna do is grow old with you"</p>
+                    </div>
+                </div>
+
+                <div class="bg-white/90 border border-pink-200 rounded-2xl p-3 flex items-center space-x-3 shadow-sm">
+                    <img src="album/nothing.jpeg" alt="Album Art" class="w-16 h-16 rounded-xl object-cover border border-pink-200 flex-shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-pink-900 text-sm truncate">Nothing</h4>
+                        <p class="text-xs text-pink-700/80 italic line-clamp-2 mt-0.5">"Have i told you lately<br>I'm Grateful you're mine"</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <button onclick="switchView('dashboard-view')"
+                class="w-full py-3 bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold rounded-xl transition-colors">
+                Back
+            </button>
+        </div>
+
+
+        <!-- ================= VIEW 6: SPOTIFY PLAYLIST ================= -->
+        <div id="spotify-view"
+            class="hidden glass-card rounded-3xl p-6 text-center space-y-6 transition-all duration-500">
+            <div class="flex items-center justify-between">
+                <button onclick="switchView('dashboard-view')"
+                    class="w-10 h-10 rounded-full bg-pink-100 hover:bg-pink-200 text-pink-600 flex items-center justify-center transition-colors shadow-sm">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <h2 class="font-script text-3xl text-pink-600 font-bold">Spotify Playlist 🎧</h2>
+                <div class="w-10"></div>
+            </div>
+
+            <div class="flex flex-col items-center justify-center py-2 space-y-4">
+                <!-- Spotify Album Photo Box -->
+                <div class="w-48 h-48 rounded-2xl overflow-hidden shadow-lg border-4 border-pink-300 relative bg-pink-50 transition-transform duration-300 hover:scale-105">
+                    <img src="spot.jpeg" alt="Spotify Playlist Cover" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-pink-900/60 to-transparent flex items-end p-4">
+                        <span class="text-white font-script text-xl drop-shadow">Songs For You</span>
+                    </div>
+                </div>
+
+                <p class="font-script text-2xl text-pink-600 font-bold">Our Special Soundtrack</p>
+                <p class="text-xs text-pink-700/70 max-w-xs leading-relaxed">Every song on this list reminds me of you, our late-night talks, and all our sweet memories together.</p>
+
+                <!-- Spotify Direct Link Button -->
+                <a href="https://open.spotify.com/playlist/2UYnLEWrM09uc5SRuJ5pyJ?si=RIiwjTWEQgGWW0mguEB1xg" target="_blank"
+                    class="py-3 px-8 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold rounded-2xl shadow-lg shadow-pink-500/30 transform active:scale-95 transition-all flex items-center space-x-3 mx-auto">
+                    <i class="fa-brands fa-spotify text-xl"></i>
+                    <span>Open on Spotify</span>
+                </a>
+            </div>
+
+            <button onclick="switchView('dashboard-view')"
+                class="w-full py-3 bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold rounded-xl transition-colors">
+                Back
+            </button>
+        </div>
+
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div id="success-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm hidden p-4">
+        <div
+            class="glass-card rounded-3xl p-6 max-w-sm w-full text-center space-y-4 shadow-2xl transform scale-95 transition-transform duration-300 animate-float border-2 border-pink-300 bg-white/95">
+            <div class="w-32 h-32 mx-auto rounded-2xl overflow-hidden shadow-md border-2 border-pink-200 bg-pink-50">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjZrNzljZWFvNHM4Y3p3YXc3eDZhZHJ4cHpjYWZjcDM0cDJwd254YyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/BK1EfIsdkKZMY/giphy.gif" alt="Happy Cat"
+                    class="w-full h-full object-cover">
+            </div>
+            <div>
+                <h3 class="font-script text-3xl text-pink-600 font-bold mb-1">You've got it right! 🎉</h3>
+                <p class="text-xs text-pink-700/80">You remembered our special anniversary date. Let's celebrate
+                    our monthsary!</p>
+            </div>
+            <button onclick="closeSuccessModal()"
+                class="w-full py-3 px-6 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold rounded-2xl shadow-lg shadow-pink-500/30 transform active:scale-95 transition-all">
+                Okay 💕
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Generate Floating Background Hearts
+        const heartsContainer = document.getElementById('floating-hearts');
+        const heartIcons = ['💖', '💕', '💗', '💓', '🌸', '✨', '🌷'];
+
+        for (let i = 0; i < 18; i++) {
+            const span = document.createElement('span');
+            span.className = 'absolute text-pink-300/60 select-none animate-float';
+            span.style.left = Math.random() * 100 + 'vw';
+            span.style.top = Math.random() * 100 + 'vh';
+            span.style.fontSize = (Math.random() * 16 + 12) + 'px';
+            span.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            span.style.animationDelay = (Math.random() * 2) + 's';
+            span.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+            heartsContainer.appendChild(span);
+        }
+
+        // Passcode & Attempt State
+        let wrongAttempts = 0;
+        const correctPasscode = "0416";
+
+        function handlePasscode(event) {
+            event.preventDefault();
+            const inputVal = document.getElementById('passcode-input').value.trim();
+            const patrickContainer = document.getElementById('patrick-container');
+            const patrickImg = document.getElementById('patrick-img');
+            const patrickText = document.getElementById('patrick-text');
+            const passcodeCard = document.getElementById('passcode-view');
+
+            if (inputVal === correctPasscode) {
+                document.getElementById('success-modal').classList.remove('hidden');
+                document.getElementById('passcode-input').value = '';
+                wrongAttempts = 0;
+                patrickContainer.classList.add('hidden');
+            } else {
+                wrongAttempts++;
+                patrickContainer.classList.remove('hidden');
+
+                passcodeCard.classList.remove('animate-shake');
+                void passcodeCard.offsetWidth; // trigger reflow
+                passcodeCard.classList.add('animate-shake');
+
+                if (wrongAttempts === 1) {
+                    patrickImg.src = "https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif";
+                    patrickText.innerText = "you've got it wrongg lovee 🥺";
+                } else {
+                    patrickImg.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2pnZjNva295N2NzeWhra2h0YWltend2NTBnYnZqczJpeHE2NXFxciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/lGBecpB2dIMwt6ohfI/giphy.gif";
+                    patrickText.innerText = "have you forgotten about itttt!! 😭";
+                }
+
+                document.getElementById('passcode-input').value = '';
+                document.getElementById('passcode-input').focus();
+            }
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('success-modal').classList.add('hidden');
+            const passcodeView = document.getElementById('passcode-view');
+            const dashboardView = document.getElementById('dashboard-view');
+
+            // AUTO-PLAY BACKGROUND MUSIC UPON CLICKING OKAY
+            const bgAudio = document.getElementById('bg-audio');
+            if (bgAudio) {
+                bgAudio.play().catch(err => {
+                    console.log("Autoplay failed or blocked by browser:", err);
+                });
+            }
+
+            passcodeView.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                passcodeView.classList.add('hidden');
+                dashboardView.classList.remove('hidden');
+                dashboardView.classList.add('opacity-100');
+            }, 300);
+        }
+
+        function switchView(viewId) {
+            const views = ['dashboard-view', 'flower-view', 'letter-view', 'music-view', 'spotify-view'];
+            views.forEach(id => {
+                const el = document.getElementById(id);
+                if (id === viewId) {
+                    el.classList.remove('hidden');
+                } else {
+                    el.classList.add('hidden');
+                }
+            });
+
+            if (viewId === 'flower-view') {
+                triggerTulipGrowth();
+            }
+        }
+
+        function triggerTulipGrowth() {
+            const wrapper = document.getElementById('tulip-wrapper');
+            wrapper.classList.remove('flower-blooming');
+            
+            void wrapper.offsetWidth; // trigger reflow
+            wrapper.classList.add('flower-blooming');
+        }
+    </script>
+</body>
+
+</html>
